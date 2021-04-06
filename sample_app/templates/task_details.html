@@ -17,7 +17,7 @@
                         <div class="col-sm-1"></div>
                         <label for="img_url" class="col-sm-1 col-form-label font-weight-bold">Image URL</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="img_url" value="{{ task.name }}" disabled>
+                            <input type="text" class="form-control" id="img_url" value="{{ task.img_url }}" disabled>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>
@@ -26,7 +26,7 @@
                         <div class="col-sm-1"></div>
                         <div class="col">
                             <div class="image-preview" id="imagePreview">
-                                <img src="" alt="" class="image-preview__image" id="previewImage">
+                                <img src="{{ task.img_url }}" alt="" class="image-preview__image" id="previewImage" style="max-width:500px; max-height:500px;">
                             </div>
                         </div>
                         <div class="col-sm-1"></div>

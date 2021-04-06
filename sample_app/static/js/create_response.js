@@ -21,41 +21,32 @@ $(document).ready(function() {
 
     });
 
-    document.getElementById('create_task_form').onsubmit=function(e){
+    document.getElementById('create_response_form').onsubmit=function(e){
         e.preventDefault();
     };
 
     // Send form to the server
     $('#submit_btn').click(function() {
     
-        var task_name = $('#task_name').val();
-        var img_url = $('#img_url').val();
-        // var evidence_list = JSON.stringify(Object.keys(evidence));
+        var task_id = $('#task_id').val();
 
         var q1 = $("#q1").val();
         var q2 = $("#q2").val();
         var q3 = $("#q3").val();
         
-        var num_responses = $("#num_responses").val();
-
-        if(task_name.length == 0 || 
-            img_url.length == 0 ||
-            q1.length == 0 ||
-            num_responses == 0) {
+        if(q1.length == 0) {
                 console.log("Fields not set.");
                 return;
         }
 
         data = {
-            "task_name": task_name,
-            "img_url": img_url,
+            "task_id": task_name,
             "q1": q1,
             "q2": q2,
-            "q3": q3,
-            "num_responses": num_responses
+            "q3": q3
         };
 
-        url = "/task/add/";
+        url = "/response/new/add";
         var csrftoken = getCookie('csrftoken');
 
         $.ajax({
@@ -66,7 +57,7 @@ $(document).ready(function() {
             dataType: "json"
           }).done(function(response) {
             $("#submit_btn").prop("disabled",true);
-            window.location.replace("/task/"+String(response)+"/");
+            window.location.replace("/task/"+String(task_id)+"/response/"+String(response)+"/");
           }).fail(function (error) {
             $('#submit_btn').prop("disabled",false);
               console.log(error);

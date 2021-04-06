@@ -45,7 +45,7 @@ def task_list(request):
 def task_details(request, task_id):
     # get task API
     name = "Special task name"
-    img_url = "imgurl.com"
+    img_url = "https://i.imgur.com/FTIHC7d.jpg"
     q1 = "find this"
     q2 = "find that"
     q3 = "find there"
@@ -80,14 +80,29 @@ def task_details(request, task_id):
     return render(request, 'task_details.html', context)
 
 # VIEWS FOR TASK RESPONSES
-def create_response(request):
-    if request.method == 'POST':
-        # do soemthing
-        return redirect('content:event_details', event_id=e.id)
-    else:
-        response = {}
-        context = {'task_response': response}
-        return render(request, 'create_response.html', context)
+def create_response(request, task_id):
+    task_id = "1"
+    name = "Special task name"
+    img_url = "https://i.imgur.com/FTIHC7d.jpg"
+    q1 = "find this"
+    q2 = "find that"
+    q3 = "find there"
+    status = "active"
+    num_responses = "5"
+    num_completed = "3"
+
+    task = {"id": task_id,
+            "name": name,
+            "img_url": img_url,
+            "q1": q1,
+            "q2": q2,
+            "q3": q3,
+            "status": status,
+            "num_responses": num_responses,
+            "num_completed": num_completed
+        }
+    context = {'task': task}
+    return render(request, 'create_response.html', context)
 
 def add_response(request) :
     # do soemthing
