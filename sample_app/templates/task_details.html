@@ -15,7 +15,7 @@
                 </h3>
                 <h5>Status: {{ task.status }}</h5> 
                 <h5>Date Created: {{ task.date_created }}</h5>
-                <!-- <button class="btn btn-danger">Close Task</button> -->
+                {% if task.status == "Open" %}<button id="close-task-btn" class="btn btn-danger">Close Task</button>{% endif %}
                 <fieldset>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
@@ -116,7 +116,7 @@
                     </div>
                     
                 </fieldset>
-                    <br>
+                <br>
             </div>
 
             <div class="col-2">

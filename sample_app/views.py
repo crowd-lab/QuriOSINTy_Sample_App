@@ -55,6 +55,18 @@ def add_task(request) :
 
 def close_task(request, task_id):
     # NOTE API CALL SETUP: call task GET API to add a new task to the database for a given flag ID
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/" # URL for API call
+    patch = {"status": "Closed"} # create the patch object
+    data = json.dumps(patch) # convert dictionary to JSON
+    headers = {'content-type': 'application/json'} # header type
+    response = requests.patch(url = url, data = data, headers = headers) # make the patch request
+    data = response.json() # extracting response data in json format
+    print("DATA RESPONSE", data) 
+
+    if response.status_code == 200: # if updating the task as closed was succesful
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400)
 
 def task_list(request):
     # NOTE API CALL SETUP: call task GET API to get all tasks
@@ -187,6 +199,16 @@ def add_response(request, task_id) :
         return HttpResponse(status=200,content=str(task_id)) # return task ID
     else:
         return HttpResponse(status=400)
+
+def close_response(request, task_id, response_id):
+    # NOTE API CALL SETUP: call task GET API to add a new task to the database for a given flag ID
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/" # URL for API call
+    patch = {"status": "Closed"} # create the patch object
+    data = json.dumps(patch) # convert dictionary to JSON
+    headers = {'content-type': 'application/json'} # header type
+    response = requests.patch(url = url, data = data, headers = headers) # make the patch request
+    data = response.json() # extracting response data in json format
+    print("DATA RESPONSE", response)
 
 def response_details(request, task_id, response_id):
     # NOTE API CALL SETUP: call response GET API to get one response
