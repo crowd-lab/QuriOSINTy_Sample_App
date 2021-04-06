@@ -23,8 +23,8 @@ def add_task(request) :
         q2 = post['q2'].strip()
         q3 = post['q3'].strip()
         
-        # call task POST API
-        flag_id = "1"
+        # NOTE API CALL SETUP: call task POST API to add a new task to the database for a given flag ID
+        flag_id = "1" # this should not be fixed (in the future), we need to associate a task to a specific verification flag
         description = {"img_url":img_url, "q1":q1, "q2":q2, "q3":q3}
 
         # create the request object (don't foget to convert to json with json.dumps)
@@ -38,39 +38,35 @@ def add_task(request) :
                         "id": flag_id
                     }
                 }
-        # print("DATA REQUEST", json.dumps(request))
+        print("DATA REQUEST", json.dumps(request))
+
         # sending post request and saving the response as response object
-        url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"
-        data = json.dumps(request) # convert to json parseable format
+        url = "https://quriosinty-dev.herokuapp.com/api/v1/task/" # URL for API call
+        data = json.dumps(request) # convert dictionary to JSON
         headers = {'content-type': 'application/json'} # header type
-        response = requests.post(url = url, data = data, headers = headers)
-        # extracting response data in json format
-        data = response.json()
-        # print("DATA RESPONSE", data)
+        response = requests.post(url = url, data = data, headers = headers) # make the post request
+        data = response.json() # extracting response data in json format
+        print("DATA RESPONSE", data)
+
         task_id = data["id"]
         return HttpResponse(status=200,content=str(task_id)) # return task ID
     else:
         return HttpResponse(status=400)
 
+def close_task(request, task_id):
+    # NOTE API CALL SETUP: call task GET API to add a new task to the database for a given flag ID
+
 def task_list(request):
-    # call tasks GET API to get all tasks
-    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"
-    response = requests.get(url = url)
-    data = response.json()
+    # NOTE API CALL SETUP: call task GET API to get all tasks
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/" # URL for API call
+    response = requests.get(url = url) # make the get request
+    data = response.json() # extracting response data in json format
     print("DATA RESPONSE", data)
-    # template_task = {
-    #     "id": "1",
-    #     "q1": "find this",
-    #     "q2": "find that",
-    #     "q3": "find there",
-    #     "created_by": "USER ADMIN",
-    #     "date_created": "today",
-    #     "num_responses": "10",
-    #     "num_completed": "5"
-    # }
+
+    # parse the response
     tasks = []
     for task in data:
-        if task["tool_name"] == "Photo Verification Sample App" :
+        if task["tool_name"] == "Photo Verification Sample App" : 
             description = json.loads(task['description'])
             temp_task = {
                 "id": task['id'],
@@ -91,10 +87,10 @@ def task_list(request):
     return render(request, 'tasks.html', context)
 
 def task_details(request, task_id):
-    # call task GET API to get one task
-    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/"
-    response = requests.get(url = url)
-    data = response.json()
+    # NOTE API CALL SETUP: call task GET API to get one task
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/" # URL for API call
+    response = requests.get(url = url) # make the get request
+    data = response.json() # extracting response data in json format
     print("DATA RESPONSE Task", data)
     description = json.loads(data['description'])
 
@@ -112,10 +108,10 @@ def task_details(request, task_id):
             "num_completed": "0"
         }
 
-    # call task GET API to get one task
-    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/response"
-    response = requests.get(url = url)
-    data = response.json()
+    # NOTE API CALL SETUP: call task GET API to get all responses for a given task
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/response" # URL for API call
+    response = requests.get(url = url) # make the get request
+    data = response.json() # extracting response data in json format
     print("DATA RESPONSE Task_Response", data)
 
     responses = []
@@ -140,16 +136,15 @@ def task_details(request, task_id):
 
 # VIEWS FOR TASK RESPONSES
 def create_response(request, task_id):
-    # call task GET API to get one task
-    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/"
-    response = requests.get(url = url)
-    data = response.json()
-    # print("DATA RESPONSE", data)
-    description = json.loads(data['description'])
+    # NOTE API CALL SETUP: call task GET API to get one task (to display to the user)
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/"  # URL for API call
+    response = requests.get(url = url) # make the get request
+    data = response.json() # extracting response data in json format
+    print("DATA RESPONSE", data)
 
+    description = json.loads(data['description'])
     task = {"name": data['name'],
             "status": data['status'],
-            # "created_by": data['created_by'],
             "date_created": data['date_created'],
             "img_url": description['img_url'],
             "q1": description['q1'],
@@ -162,49 +157,48 @@ def create_response(request, task_id):
     context = {'task': task}
     return render(request, 'create_response.html', context)
 
-
 def add_response(request, task_id) :
     if request.method == 'POST':
         post = request.POST
         ans1 = post['ans1'].strip()
         ans2 = post['ans2'].strip()
         ans3 = post['ans3'].strip()
-        
-        # call response POST API
         description = {"ans1":ans1, "ans2":ans2, "ans3":ans3}
 
+        # NOTE API CALL SETUP: call response POST API to add a new response for a given task ID
         # create the request object (don't foget to convert to json with json.dumps)
         request = { 
                     "task": task_id,
                     "created_by": "Response User",
                     "status": "Pending",
-                    "data": str(json.dumps(description))
+                    "data": str(json.dumps(description)) # convert dictionary to JSON
                 }
-        print("DATA REQUEST", json.dumps(request))
-        # sending post request and saving the response as response object
-        url = "https://quriosinty-dev.herokuapp.com/api/v1/response/"
-        data = json.dumps(request) # convert to json parseable format
+        print("DATA REQUEST", json.dumps(request)) 
+
+        # set up to make the POST request
+        url = "https://quriosinty-dev.herokuapp.com/api/v1/response/" # URL for API call
+        data = json.dumps(request) # convert dictionary to JSON
         headers = {'content-type': 'application/json'} # header type
-        response = requests.post(url = url, data = data, headers = headers)
-        # extracting response data in json format
-        data = response.json()
+        response = requests.post(url = url, data = data, headers = headers) # make the post request
+        data = response.json() # extracting response data in json format
         print("DATA RESPONSE", data)
+
         task_id = data["id"]
         return HttpResponse(status=200,content=str(task_id)) # return task ID
     else:
         return HttpResponse(status=400)
 
 def response_details(request, task_id, response_id):
-    # call response GET API to get one response
-    url = "https://quriosinty-dev.herokuapp.com/api/v1/response/"+str(response_id)+"/"
-    response = requests.get(url = url)
-    data = response.json()
+    # NOTE API CALL SETUP: call response GET API to get one response
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/response/"+str(response_id)+"/" # URL for API call
+    response = requests.get(url = url) # make the get request
+    data = response.json() # extracting response data in json format
     print("DATA RESPONSE", data)
-    description = json.loads(data['task']['description'])
 
+    # API returns the response and its parent task details, parse it
+    description = json.loads(data['task']['description'])
     task = {"name": data['task']['name'],
             "status": data['task']['status'],
-            # "created_by": data['created_by'],
             "date_created": data['task']['date_created'],
             "img_url": description['img_url'],
             "q1": description['q1'],
@@ -214,6 +208,7 @@ def response_details(request, task_id, response_id):
             "num_completed": "0"
         }
     
+    # API returns response details, parse the response
     ans = json.loads(data['data'])
     response = {
         "id": data['id'],
@@ -224,5 +219,6 @@ def response_details(request, task_id, response_id):
         "date_created": data['date_created'],
         "status": data['status']
     }
+
     context = {'task':task, 'response': response}
     return render(request, 'response_details.html', context)
