@@ -36,43 +36,46 @@
                         <div class="col-sm-1"></div>
                     </div>
                     
-                    
-                    <h5>Answer the following questions:</h5>
-                    <br>
-                    <div class="form-group">
-                        <div class="col-sm-2"></div>
-                        <label for="q1" class="col-form-label font-weight-bold">Question 1: {{ task.q1 }}</label>
-                        <div class="col-6">
-                            <input type="text" class="form-control" id="q1" placeholder="Enter your answer" required>
+                    {% if task.status == 'Open' %}
+                        <h5>Answer the following questions:</h5>
+                        <br>
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <label for="ans1" class="col-form-label font-weight-bold">Question 1: {{ task.q1 }}</label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="ans1" placeholder="Enter your answer" required>
+                            </div>
+                            <div class="col-sm-2"></div>
                         </div>
-                        <div class="col-sm-2"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2"></div>
-                        <label for="q2" class="col-form-label font-weight-bold">Question 2: {{ task.q2 }}</label>
-                        <div class="col-6">
-                            <input type="text" class="form-control" id="q2" placeholder="Enter your answer">
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <label for="ans2" class="col-form-label font-weight-bold">Question 2: {{ task.q2 }}</label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="ans2" placeholder="Enter your answer">
+                            </div>
+                            <div class="col-sm-2"></div>
                         </div>
-                        <div class="col-sm-2"></div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-2"></div>
-                        <label for="q3" class="col-form-label font-weight-bold">Question 3: {{ task.q3 }}</label>
-                        <div class="col-6">
-                            <input type="text" class="form-control" id="q3" placeholder="Enter your answer">
+                        <div class="form-group">
+                            <div class="col-sm-2"></div>
+                            <label for="ans3" class="col-form-label font-weight-bold">Question 3: {{ task.q3 }}</label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="ans3" placeholder="Enter your answer">
+                            </div>
+                            <div class="col-sm-2"></div>
                         </div>
-                        <div class="col-sm-2"></div>
-                    </div>
 
-                    </fieldset>
-                    <br>
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col">
-                            <button id="submit_btn" class="btn btn-primary" type="submit">Submit</button>
+                        </fieldset>
+                        <br>
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                                <button id="submit_btn" class="btn btn-primary" type="submit">Submit</button>
+                            </div>
+                            <div class="col"></div>
                         </div>
-                        <div class="col"></div>
-                    </div>
+                    {% else %}
+                        <p>This task is closed. Please contribute to an open task. Thanks!</p>
+                    {% endif %}
                 </form>
             </div>
 

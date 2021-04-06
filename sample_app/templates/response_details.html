@@ -20,7 +20,7 @@
                     <br>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
-                        <label for="q1" class="col-sm-1 col-form-label font-weight-bold">Question 1</label>
+                        <label for="q1" class="col-sm-1 col-form-label font-weight-bold">Question 1: {{ task.q1 }}</label>
                         <div class="col">
                             <input type="text" class="form-control" id="q1" value="{{ response.q1 }}" disabled>
                         </div>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
-                        <label for="q2" class="col-sm-1 col-form-label font-weight-bold">Question 2</label>
+                        <label for="q2" class="col-sm-1 col-form-label font-weight-bold">Question 2: {{ task.q2 }}</label>
                         <div class="col">
                             <input type="text" class="form-control" id="q2" value="{{ response.q2 }}" disabled>
                         </div>
@@ -36,7 +36,7 @@
                     </div>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
-                        <label for="q3" class="col-sm-1 col-form-label font-weight-bold">Question 3</label>
+                        <label for="q3" class="col-sm-1 col-form-label font-weight-bold">Question 3: {{ task.q3 }}</label>
                         <div class="col">
                             <input type="text" class="form-control" id="q3" value="{{ response.q3 }}" disabled>
                         </div>
@@ -44,7 +44,14 @@
                     </div>
                     
                 </fieldset>
-                    <br>
+                <br>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col">
+                        <button id="submit_btn" class="btn btn-primary" type="submit">Approve Response</button>
+                    </div>
+                    <div class="col"></div>
+                </div>
             </div>
 
             <div class="col-2">

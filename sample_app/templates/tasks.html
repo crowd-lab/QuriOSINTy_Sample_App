@@ -18,6 +18,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">Task ID</th>
+                                <th scope="col">Task Name</th>
                                 <th scope="col">Question 1</th>
                                 <th scope="col">Question 2</th>
                                 <th scope="col">Question 3</th>
@@ -29,7 +30,8 @@
                             <tbody>
                             {% for task in tasks %}
                                 <tr>
-                                    <td scope="row">{{ task.id }} <a href="#"><i class="primary fas fa-external-link-alt"></i></a></td>
+                                    <td>{{ task.id }}</td>
+                                    <td>{{ task.name }} <a href="{% url 'sample_app:task_details' task.id %}"><i class="fas fa-external-link-alt"></i></a></td>
                                     <td>{{ task.q1 }}</td>
                                     <td>{{ task.q2 }}</td>
                                     <td>{{ task.q3 }}</td>

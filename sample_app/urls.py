@@ -13,6 +13,6 @@ urlpatterns = [
     # Task Responses
     path('task/<int:task_id>/response/<int:response_id>/', views.response_details, name="response_details"),
     path('task/<int:task_id>/response/new/', views.create_response, name="create_response"),
-    path('task/<int:task_id>/response/add/', views.add_task, name="add_task"), 
+    path('task/<int:task_id>/response/add/', views.add_response, name="add_response"), 
     # set task response as accepted
 ]

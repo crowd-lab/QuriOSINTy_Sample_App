@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load humanize %}
 {% load static %}
 {% block page %}
 
@@ -10,8 +11,11 @@
             
             <div class="col">
                 <h3>
-                    {{ task.name }}
+                    Task: {{ task.name }}
                 </h3>
+                <h5>Status: {{ task.status }}</h5> 
+                <h5>Date Created: {{ task.date_created }}</h5>
+                <!-- <button class="btn btn-danger">Close Task</button> -->
                 <fieldset>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
@@ -78,7 +82,7 @@
                         <label for="num_responses" class="col-sm-2 col-form-label font-weight-bold">Completed Responses</label>
                         <div class="col">
                             <select class="form-control" id="num_responses" disabled>
-                                <option>{{ task.num_responses }}</option>
+                                <option>{{ task.num_completed }}</option>
                             </select>
                         </div>
                         <div class="col-sm-6"></div>
