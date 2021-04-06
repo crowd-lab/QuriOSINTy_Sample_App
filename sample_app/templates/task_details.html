@@ -11,7 +11,7 @@
             
             <div class="col">
                 <h3>
-                    Task: {{ task.name }}
+                    Task {{ task.id }}: {{ task.name }}
                 </h3>
                 <h5>Status: {{ task.status }}</h5> 
                 <h5>Date Created: {{ task.date_created }}</h5>
@@ -103,10 +103,10 @@
                             <tbody>
                             {% for response in responses %}
                                 <tr>
-                                    <td scope="row">{{ response.id }} <a href="#"><i class="primary fas fa-external-link-alt"></i></a></td>
-                                    <td>{{ response.q1 }}</td>
-                                    <td>{{ response.q2 }}</td>
-                                    <td>{{ response.q3 }}</td>
+                                    <td scope="row">{{ response.id }} <a href="{% url 'sample_app:response_details' task.id response.id %}"><i class="primary fas fa-external-link-alt"></i></a></td>
+                                    <td>{{ response.ans1 }}</td>
+                                    <td>{{ response.ans2 }}</td>
+                                    <td>{{ response.ans3 }}</td>
                                     <td>{{ response.created_by }}</td>
                                     <td>{{ response.date_created }}</td>
                                 </tr>

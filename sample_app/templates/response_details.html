@@ -10,6 +10,31 @@
             
             <div class="col">
                 <h3>
+                    Task: {{ task.name }}
+                </h3>
+                <h5>Status: {{ task.status }}</h5> 
+                <h5>Date Created: {{ task.date_created }}</h5>
+                <!-- <button class="btn btn-danger">Close Task</button> -->
+                <fieldset>
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <label for="img_url" class="col-sm-1 col-form-label font-weight-bold">Image URL</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="img_url" value="{{ task.img_url }}" disabled>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-1"></div>
+                        <div class="col">
+                            <div class="image-preview" id="imagePreview">
+                                <img src="{{ task.img_url }}" alt="" class="image-preview__image" id="previewImage" style="max-width:500px; max-height:500px;">
+                            </div>
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                <h3>
                     Response {{ response.id }}
                 </h3>
                 <h5>Created by: {{ response.created_by }} </h5>
@@ -18,27 +43,27 @@
                 <fieldset>                 
                     <h5>Responses to the 3 questions:</h5>
                     <br>
-                    <div class="form-group row">
+                    <div class="form-group">
                         <div class="col-sm-1"></div>
-                        <label for="q1" class="col-sm-1 col-form-label font-weight-bold">Question 1: {{ task.q1 }}</label>
+                        <label for="q1" class="col col-form-label font-weight-bold">Question 1: {{ task.q1 }}</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="q1" value="{{ response.q1 }}" disabled>
+                            <input type="text" class="form-control" id="q1" value="{{ response.ans1 }}" disabled>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group">
                         <div class="col-sm-1"></div>
-                        <label for="q2" class="col-sm-1 col-form-label font-weight-bold">Question 2: {{ task.q2 }}</label>
+                        <label for="q2" class="col col-form-label font-weight-bold">Question 2: {{ task.q2 }}</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="q2" value="{{ response.q2 }}" disabled>
+                            <input type="text" class="form-control" id="q2" value="{{ response.ans2 }}" disabled>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group">
                         <div class="col-sm-1"></div>
-                        <label for="q3" class="col-sm-1 col-form-label font-weight-bold">Question 3: {{ task.q3 }}</label>
+                        <label for="q3" class="col col-form-label font-weight-bold">Question 3: {{ task.q3 }}</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="q3" value="{{ response.q3 }}" disabled>
+                            <input type="text" class="form-control" id="q3" value="{{ response.ans3 }}" disabled>
                         </div>
                         <div class="col-sm-1"></div>
                     </div>

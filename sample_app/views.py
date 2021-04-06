@@ -95,10 +95,12 @@ def task_details(request, task_id):
     url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/"
     response = requests.get(url = url)
     data = response.json()
-    # print("DATA RESPONSE",data)
+    print("DATA RESPONSE Task", data)
     description = json.loads(data['description'])
 
-    task = {"name": data['name'],
+    task = {
+            "id": data['id'],
+            "name": data['name'],
             "status": data['status'],
             # "created_by": data['created_by'],
             "date_created": data['date_created'],
@@ -110,16 +112,26 @@ def task_details(request, task_id):
             "num_completed": "0"
         }
 
-    response = {
-        "id": "1",
-        "q1": "not here",
-        "q2": "not that",
-        "q3": "not then",
-        "created_by": "USER 1",
-        "date_created": "today"
-    }
+    # call task GET API to get one task
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/response"
+    response = requests.get(url = url)
+    data = response.json()
+    print("DATA RESPONSE Task_Response", data)
+
     responses = []
-    responses.append(response)
+    for response in data: 
+        ans = json.loads(response['data'])
+        temp_response = { 
+                    "id": response['id'],
+                    "date_created": response['date_created'],
+                    "created_by": response['created_by'],
+                    "status": response['status'],
+                    "ans1": ans['ans1'],
+                    "ans2": ans['ans2'],
+                    "ans3": ans['ans3'],
+                }
+        print("TEMP RESPONSE", temp_response)
+        responses.append(temp_response)
 
     context = {'task': task,
                'responses': responses    
@@ -132,7 +144,7 @@ def create_response(request, task_id):
     url = "https://quriosinty-dev.herokuapp.com/api/v1/task/"+str(task_id)+"/"
     response = requests.get(url = url)
     data = response.json()
-    
+    # print("DATA RESPONSE", data)
     description = json.loads(data['description'])
 
     task = {"name": data['name'],
@@ -168,7 +180,7 @@ def add_response(request, task_id) :
                     "status": "Pending",
                     "data": str(json.dumps(description))
                 }
-        # print("DATA REQUEST", json.dumps(request))
+        print("DATA REQUEST", json.dumps(request))
         # sending post request and saving the response as response object
         url = "https://quriosinty-dev.herokuapp.com/api/v1/response/"
         data = json.dumps(request) # convert to json parseable format
@@ -176,21 +188,41 @@ def add_response(request, task_id) :
         response = requests.post(url = url, data = data, headers = headers)
         # extracting response data in json format
         data = response.json()
-        print("DATA RESPONSE",data)
+        print("DATA RESPONSE", data)
         task_id = data["id"]
         return HttpResponse(status=200,content=str(task_id)) # return task ID
     else:
         return HttpResponse(status=400)
 
 def response_details(request, task_id, response_id):
-    # get response API
+    # call response GET API to get one response
+    url = "https://quriosinty-dev.herokuapp.com/api/v1/response/"+str(response_id)+"/"
+    response = requests.get(url = url)
+    data = response.json()
+    print("DATA RESPONSE", data)
+    description = json.loads(data['task']['description'])
+
+    task = {"name": data['task']['name'],
+            "status": data['task']['status'],
+            # "created_by": data['created_by'],
+            "date_created": data['task']['date_created'],
+            "img_url": description['img_url'],
+            "q1": description['q1'],
+            "q2": description['q2'],
+            "q3": description['q3'],
+            "num_responses": data['task']['request_responses'],
+            "num_completed": "0"
+        }
+    
+    ans = json.loads(data['data'])
     response = {
-        "id": "1",
-        "q1": "not here",
-        "q2": "not that",
-        "q3": "not then",
-        "created_by": "USER 1",
-        "date_created": "today"
+        "id": data['id'],
+        "ans1": ans['ans1'],
+        "ans2": ans['ans2'],
+        "ans3": ans['ans3'],
+        "created_by": data['created_by'],
+        "date_created": data['date_created'],
+        "status": data['status']
     }
-    context = {'response': response}
+    context = {'task':task, 'response': response}
     return render(request, 'response_details.html', context)
