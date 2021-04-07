@@ -19,12 +19,11 @@
                             <tr>
                                 <th scope="col">Task ID</th>
                                 <th scope="col">Task Name</th>
-                                <th scope="col">Question 1</th>
-                                <th scope="col">Question 2</th>
-                                <th scope="col">Question 3</th>
+                                <th scope="col">Description</th>
                                 <th scope="col">Completed Responses</th>
                                 <th scope="col">Requested Responses</th>
                                 <th scope="col">Date Created</th>
+                                <th scope="col">Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -32,12 +31,11 @@
                                 <tr>
                                     <td>{{ task.id }}</td>
                                     <td>{{ task.name }} <a href="{% url 'sample_app:task_details' task.id %}"><i class="fas fa-external-link-alt"></i></a></td>
-                                    <td>{{ task.q1 }}</td>
-                                    <td>{{ task.q2 }}</td>
-                                    <td>{{ task.q3 }}</td>
+                                    <td>{{ task.description }}</td>
                                     <td>{{ task.num_completed }}</td>
                                     <td>{{ task.num_responses }}</td>
                                     <td>{{ task.date_created }}</td>
+                                    <td>{{ task.status }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

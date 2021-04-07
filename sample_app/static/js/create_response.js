@@ -27,6 +27,7 @@ $(document).ready(function() {
 
     // Send form to the server
     $('#submit_btn').click(function() {
+        var username = $("#username").val();
         var ans1 = $("#ans1").val();
         var ans2 = $("#ans2").val();
         var ans3 = $("#ans3").val();
@@ -37,6 +38,7 @@ $(document).ready(function() {
         }
 
         data = {
+            "username": username,
             "ans1": ans1,
             "ans2": ans2,
             "ans3": ans3
@@ -54,7 +56,7 @@ $(document).ready(function() {
             dataType: "json"
           }).done(function(response) {
             $("#submit_btn").prop("disabled",true);
-            // window.location.replace("/task/"+String(task_id)+"/response/"+String(response)+"/");
+            window.location.replace("/task/"+String(task_id)+"/response/"+String(response)+"/");
           }).fail(function (error) {
             $('#submit_btn').prop("disabled",false);
               console.log(error);

@@ -9,11 +9,10 @@ urlpatterns = [
     path('task/<int:task_id>/', views.task_details, name="task_details"), # URL to view task details for a given task ID
     path('task/new/', views.create_task, name="create_task"), # URL for create task page
     path('task/add/', views.add_task, name="add_task"), # URL to add a new task 
-    path('task/<int:task_id>/close/', views.close_task, name="close_task"), # URL to close a task once it's finished
-
+    path('task/<int:task_id>/update/<str:update>/', views.update_task, name="update_task"), # URL to update task status to Closed or to set it again to Open
     # Task Responses
     path('task/<int:task_id>/response/<int:response_id>/', views.response_details, name="response_details"), # URL to view response details for a given response ID and task ID
     path('task/<int:task_id>/response/new/', views.create_response, name="create_response"), # URL for create response page for a given task ID
     path('task/<int:task_id>/response/add/', views.add_response, name="add_response"), # URL to add a new response for a given task ID
-    path('task/<int:task_id>/response/<int:response_id>/close/', views.close_response, name="close_response") # URL to approve/reject responses
+    path('response/<int:response_id>/judge/<int:judgement>/', views.judge_response, name="judge_response") # URL to approve/reject responses
 ]

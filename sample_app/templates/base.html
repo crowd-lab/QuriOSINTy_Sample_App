@@ -23,12 +23,14 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="{%url 'sample_app:task_list' %}">All Tasks</a>
-          <a href="{%url 'sample_app:create_task' %}"><button class="btn btn-outline-success" type="button">New Task</button></a>
+      {% if page_type == "task" %}
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="{%url 'sample_app:task_list' %}">All Tasks</a>
+            <a href="{%url 'sample_app:create_task' %}"><button class="btn btn-outline-success" type="button">New Task</button></a>
+          </div>
         </div>
-      </div>
+      {% endif %}
   </nav>
 
   <div id="container">
