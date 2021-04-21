@@ -14,6 +14,15 @@ function getCookie(name) {
     return cookieValue;
 }
 
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+    function(m,key,value) {
+      vars[key] = value;
+    });
+    return vars;
+  }
+
 $(document).ready(function() {
     $('#img_url').change(function(){
         $('#previewImage').css({'max-width' : '500px' , 'max-height' : '500px'});
@@ -28,11 +37,13 @@ $(document).ready(function() {
     // Send form to the server
     $('#submit_btn').click(function() {
     
+        var token = getUrlVars()["token"]; // get the authorization token for that user from the URL query string ("token=<string>")
+        var event = getUrlVars()["event"]; // get the event ID from the URL query string ("event=<int>")
+        var tool = getUrlVars()["tool"]; // get the tool ID from the URL query string ("tool=<int>")
         var task_name = $('#task_name').val();
         var task_description = $('#task_description').val();
         var time_estimate = $('#time_estimate').val();
         var img_url = $('#img_url').val();
-        // var evidence_list = JSON.stringify(Object.keys(evidence));
 
         var q1 = $("#q1").val();
         var q2 = $("#q2").val();
@@ -51,6 +62,9 @@ $(document).ready(function() {
         }
 
         data = {
+            "token": token,
+            "event": event,
+            "tool": tool,
             "task_name": task_name,
             "task_description": task_description,
             "time_estimate": time_estimate,
@@ -62,7 +76,7 @@ $(document).ready(function() {
         };
         console.log(data)
 
-        url = "/task/add/";
+        url = "/task/new/";
         var csrftoken = getCookie('csrftoken');
 
         $.ajax({
@@ -73,7 +87,7 @@ $(document).ready(function() {
             dataType: "json"
           }).done(function(response) {
             $("#submit_btn").prop("disabled",true);
-            window.location.replace("/task/"+String(response)+"/");
+            window.location.replace("/task/?task="+String(response['task'])+"&token="+String(response['token'])+"&event="+String(response["event"])+"&tool="+String(response['tool']));
           }).fail(function (error) {
             $('#submit_btn').prop("disabled",false);
               console.log(error);

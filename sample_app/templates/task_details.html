@@ -62,8 +62,6 @@
                     <br>
                     <div class="form-group row">
                         <div class="col-sm-1"></div>
-                        <label for="response_url" class="col-sm-2 font-weight-bold">Response URL</label>
-                        <span class=""><a href="{% url 'sample_app:create_response' task.id %}">{{ request.get_host }}{% url 'sample_app:create_response' task.id %}</a></span>
                         <div class="col-sm-6">
                             {% if task.status == "Closed" %}<span>Note: Your task is closed.</span>{% endif %}
                             {% if responses_allowed == False %}<span>Note: All requested responses have been submitted.</span>{% endif %}
