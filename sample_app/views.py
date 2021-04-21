@@ -79,7 +79,7 @@ def update_task(request, task_id, update, auth_token):
     data = json.dumps(patch) # convert dictionary to JSON
 
     headers = {'content-type': 'application/json', 'Authorization': 'Token {}'.format(auth_token)}  # header type and authorization
-    response = requests.put(url = url, data = data, headers = headers) # make the post request
+    response = requests.patch(url = url, data = data, headers = headers) # make the patch request [PATCH is for partial updates; while PUT updates all required fields; POST is for creating new objects]
     data = response.json() # extracting response data in json format
     print("DATA RESPONSE", data)
 
