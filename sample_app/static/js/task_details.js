@@ -1,3 +1,12 @@
+function getUrlVars() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+  function(m,key,value) {
+    vars[key] = value;
+  });
+  return vars;
+}
+
 $(document).ready(function() {
 
     // Set up the table
@@ -7,9 +16,10 @@ $(document).ready(function() {
     } );
 
     $('#close_task_btn').click(function() {
-        var task_id = window.location.href.split("/")[4];
-        url = "/task/"+String(task_id)+"/update/closed";
-        console.log(url);
+        var task_id = getUrlVars()["task"];
+        var auth_token = getUrlVars()["token"];
+        url = "/task/"+String(task_id)+"/update/closed/"+String(auth_token)+"/";
+        alert(url);
 
         $.get(url, function() {
           })
@@ -24,9 +34,10 @@ $(document).ready(function() {
     });
 
     $('#reopen_task_btn').click(function() {
-        var task_id = window.location.href.split("/")[4];
-        url = "/task/"+String(task_id)+"/update/open/";
-        console.log(url);
+        var task_id = getUrlVars()["task"];
+        var auth_token = getUrlVars()["token"];
+        url = "/task/"+String(task_id)+"/update/open/"+String(auth_token)+"/";
+        alert(url);
 
         $.get(url, function() {
           })

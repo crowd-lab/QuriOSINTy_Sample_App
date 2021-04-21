@@ -21,7 +21,7 @@ function getUrlVars() {
       vars[key] = value;
     });
     return vars;
-  }
+}
 
 $(document).ready(function() {
     $('#img_url').change(function(){

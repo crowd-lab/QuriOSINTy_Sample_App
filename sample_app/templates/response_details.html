@@ -10,7 +10,7 @@
             
             <div class="col">
                 <h3>
-                    <a href="{% url 'sample_app:task_details' task.id %}">Task {{ task.id }}</a>: {{ task.name }}
+                    <a href="">Task {{ task.id }}</a>: {{ task.name }}
                 </h3>
                 <h5>Task Status: {{ task.status }} </h5> 
                 <h5>Date Created: {{ task.date_created }} </h5>
@@ -65,14 +65,16 @@
                     
                 </fieldset>
                 <br>
-                <div class="row">
-                    <div class="col"></div>
-                    <div class="col">
-                        {% if response.status == "Pending" or response.status == "Rejected" %}<button id="approve_response_btn" class="btn btn-success" type="button">Approve Response</button>{% endif %}
-                        {% if response.status == "Pending" or response.status == "Approved" %}<button id="reject_response_btn" class="btn btn-danger" type="button">Reject Response</button>{% endif %}
+                
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            {% if response.status == "Pending" or response.status == "Rejected" %}<button id="approve_response_btn" class="btn btn-success" type="button">Approve Response</button>{% endif %}
+                            {% if response.status == "Pending" or response.status == "Approved" %}<button id="reject_response_btn" class="btn btn-danger" type="button">Reject Response</button>{% endif %}
+                        </div>
+                        <div class="col"></div>
                     </div>
-                    <div class="col"></div>
-                </div>
+                
             </div>
 
             <div class="col-2">
