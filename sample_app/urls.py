@@ -14,3 +14,10 @@ urlpatterns = [
     path('response/new/', views.create_response, name="create_response"), # URL for create response page for a given task ID
     path('response/<int:response_id>/judge/<int:judgement>/<str:auth_token>/', views.judge_response, name="judge_response") # URL to approve/reject responses
 ]
+
+# URLS to register with QuriOSINTy:
+# Home Page: BASE_URL + "/"
+# Task Details: BASE_URL + "/task/"
+# New Task: BASE_URL + "/task/new/"
+# Response Details: BASE_URL + "/response/"
+# New Response: BASE_URL + "/response/new/"

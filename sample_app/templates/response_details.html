@@ -65,15 +65,17 @@
                     
                 </fieldset>
                 <br>
-                
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col">
-                            {% if response.status == "Pending" or response.status == "Rejected" %}<button id="approve_response_btn" class="btn btn-success" type="button">Approve Response</button>{% endif %}
-                            {% if response.status == "Pending" or response.status == "Approved" %}<button id="reject_response_btn" class="btn btn-danger" type="button">Reject Response</button>{% endif %}
+
+                    {% if is_task_owner == "True" %}
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col">
+                                {% if response.status == "Pending" or response.status == "Rejected" %}<button id="approve_response_btn" class="btn btn-success" type="button">Approve Response</button>{% endif %}
+                                {% if response.status == "Pending" or response.status == "Approved" %}<button id="reject_response_btn" class="btn btn-danger" type="button">Reject Response</button>{% endif %}
+                            </div>
+                            <div class="col"></div>
                         </div>
-                        <div class="col"></div>
-                    </div>
+                    {% endif %}
                 
             </div>
 

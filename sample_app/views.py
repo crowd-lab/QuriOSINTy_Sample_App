@@ -342,7 +342,7 @@ def response_details(request):
     
     # API returns response details, parse the response
     ans = data['data']
-    response = {
+    response_data = {
         "id": data['id'],
         "ans1": ans['ans1'],
         "ans2": ans['ans2'],
@@ -351,9 +351,21 @@ def response_details(request):
         "date_created": data['date_created'],
         "status": data['status']
     }
+    print("RESPONSE",response_data)
+
+    auth_token = request.GET["token"]
+    url = API_BASE_URL + "task/"+str(task_id)+"/istaskowner/" # URL for API call
+    headers = {'content-type': 'application/json', 'Authorization': 'Token {}'.format(auth_token)}  # header type and authorization
+    response = requests.get(url = url, headers = headers) # make the patch request [PATCH is for partial updates; while PUT updates all required fields; POST is for creating new objects]
+    is_task_owner = False
+    if response.status_code != 404:
+        owner_data = response.json() # extracting response data in json format
+        print("DATA RESPONSE IsTaskOwner:", owner_data)
+        is_task_owner = str(owner_data["IsTaskOwner"])
 
     context = {'page_type': 'response',
                'task':task,
-               'response': response
+               'response': response_data,
+               'is_task_owner': is_task_owner
               }
     return render(request, 'response_details.html', context)
