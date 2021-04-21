@@ -6,8 +6,8 @@ import datetime
 from dateutil.parser import parse
 
 # Set the base URL here:
-# API_BASE_URL = "https://quriosinty-dev.herokuapp.com/api/v1/"
-API_BASE_URL = "http://localhost:8080/api/v1/"
+API_BASE_URL = "https://quriosinty-dev.herokuapp.com/api/v1/"
+# API_BASE_URL = "http://localhost:8080/api/v1/"
 # Create your views here.
 
 # VIEWS FOR TASKS
